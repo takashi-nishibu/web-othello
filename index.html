@@ -4,10 +4,8 @@
   <meta charset="utf-8" />
   <title>Othello Web (pygame-ce)</title>
 
-  <!-- PyScript 本体 -->
   <script type="module" src="https://pyscript.net/latest/core.js"></script>
 
-  <!-- PyScript 設定：pygame-ce を使う -->
   <script type="py-config">
     packages = ["pygame-ce"]
   </script>
@@ -22,19 +20,18 @@
       height: 100vh;
       overflow: hidden;
     }
-    #game-container {
-      width: 480px;
-      height: 480px;
-    }
     canvas {
       border: 1px solid #333;
     }
   </style>
 </head>
 <body>
-  <div id="game-container">
-    <!-- PyScript がここに pygame の Canvas を作る -->
-    <script type="py-game" src="othello.py"></script>
-  </div>
+
+  <!-- ★ ここが重要：Canvas を自分で作る -->
+  <canvas id="pygame-canvas" width="480" height="480"></canvas>
+
+  <!-- ★ py-game に canvas の id を指定する -->
+  <script type="py-game" src="othello.py" canvas="pygame-canvas"></script>
+
 </body>
 </html>

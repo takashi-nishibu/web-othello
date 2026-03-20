@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <title>Othello Web (pygame-wasm)</title>
 
-  <!-- pygame-wasm ランタイム -->
   <script src="https://pygame-web.github.io/archives/0.9/pygame_wasm.js"></script>
 
   <style>
@@ -24,11 +23,9 @@
 </head>
 <body>
 
-  <!-- 描画先 Canvas -->
   <canvas id="canvas" width="480" height="480"></canvas>
 
   <script>
-    // pygame-wasm を初期化して othello.py を実行
     loadPygame({
       canvas: document.getElementById("canvas"),
       pythonFiles: ["othello.py"],

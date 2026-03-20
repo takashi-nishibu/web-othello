@@ -164,7 +164,7 @@ def main():
     screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE), pygame.SCALED)
     pygame.display.set_caption("Othello (Web, Player vs CPU)")
     clock = pygame.time.Clock()
-    font = pygame.font.SysFont(None, 24)
+    font = pygame.font.Font(None, 24)
 
     board = create_board()
     current_color = BLACK

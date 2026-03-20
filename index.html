@@ -2,10 +2,10 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title>Othello Web (pygame-ce)</title>
+  <title>Othello Web (pygame-wasm)</title>
 
-  <!-- Pyodide -->
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  <!-- pygame-wasm ランタイム -->
+  <script src="https://pygame-web.github.io/archives/0.9/pygame_wasm.js"></script>
 
   <style>
     body {
@@ -24,33 +24,15 @@
 </head>
 <body>
 
-  <!-- ★ 自前 Canvas -->
-  <canvas id="pygame-canvas" width="480" height="480"></canvas>
+  <!-- 描画先 Canvas -->
+  <canvas id="canvas" width="480" height="480"></canvas>
 
   <script>
-    async function main() {
-      const pyodide = await loadPyodide();
-
-      // pygame-ce をロード
-      await pyodide.loadPackage("pygame-ce");
-
-      // Python コードを読み込む
-      const code = await (await fetch("othello.py")).text();
-
-      // Canvas を pygame に渡す
-      pyodide.runPython(`
-import pygame
-import js
-
-canvas = js.document.getElementById("pygame-canvas")
-pygame.display.set_mode((480, 480), pygame.SCALED, canvas=canvas)
-`);
-
-      // ゲーム本体を実行
-      pyodide.runPython(code);
-    }
-
-    main();
+    // pygame-wasm を初期化して othello.py を実行
+    loadPygame({
+      canvas: document.getElementById("canvas"),
+      pythonFiles: ["othello.py"],
+    });
   </script>
 
 </body>

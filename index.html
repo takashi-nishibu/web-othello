@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <title>Othello Web (pygame-wasm)</title>
 
+  <!-- pygame-wasm 0.10.1 -->
   <script src="https://cdn.jsdelivr.net/gh/pygame-web/pygame-wasm@0.10.1/pygame_wasm.js"></script>
+
   <style>
     body {
       margin: 0;
@@ -25,7 +27,7 @@
   <canvas id="canvas" width="480" height="480"></canvas>
 
   <script>
-    loadPygame({
+    pygameWeb.run({
       canvas: document.getElementById("canvas"),
       pythonFiles: ["othello.py"],
     });

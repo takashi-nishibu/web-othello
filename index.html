@@ -4,11 +4,8 @@
   <meta charset="utf-8" />
   <title>Othello Web (pygame-ce)</title>
 
-  <script type="module" src="https://pyscript.net/latest/core.js"></script>
-
-  <script type="py-config">
-    packages = ["pygame-ce"]
-  </script>
+  <!-- Pyodide -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 
   <style>
     body {
@@ -27,11 +24,34 @@
 </head>
 <body>
 
-  <!-- ★ ここが重要：Canvas を自分で作る -->
+  <!-- ★ 自前 Canvas -->
   <canvas id="pygame-canvas" width="480" height="480"></canvas>
 
-  <!-- ★ py-game に canvas の id を指定する -->
-  <script type="py-game" src="othello.py" canvas="pygame-canvas"></script>
+  <script>
+    async function main() {
+      const pyodide = await loadPyodide();
+
+      // pygame-ce をロード
+      await pyodide.loadPackage("pygame-ce");
+
+      // Python コードを読み込む
+      const code = await (await fetch("othello.py")).text();
+
+      // Canvas を pygame に渡す
+      pyodide.runPython(`
+import pygame
+import js
+
+canvas = js.document.getElementById("pygame-canvas")
+pygame.display.set_mode((480, 480), pygame.SCALED, canvas=canvas)
+`);
+
+      // ゲーム本体を実行
+      pyodide.runPython(code);
+    }
+
+    main();
+  </script>
 
 </body>
 </html>
